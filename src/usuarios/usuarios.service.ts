@@ -23,7 +23,7 @@ export class UsuariosService {
   }
 
   findAll() {
-    return this.userModel.find();
+    return this.userModel.find().select('-clave');
   }
 
   findOne(id: number) {

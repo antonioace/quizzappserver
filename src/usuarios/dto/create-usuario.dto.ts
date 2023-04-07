@@ -12,7 +12,9 @@ export class CreateUsuarioDto {
   celular: string;
 
   @IsNotEmpty({ message: 'El email es requerido' })
-  @IsEmail({}, { message: 'El email no es válido' })
+  @IsEmail({
+    
+  },{ message: 'El email no es válido' })
   email: string;
 
   @IsNotEmpty({ message: 'La clave es requerida' })

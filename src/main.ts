@@ -5,22 +5,22 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.enableCors()
+  await app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-
-    })
-   );
-   const config = new DocumentBuilder()
-   .setTitle('Documentación de la api de quizzapp')
-   .setDescription('Aca esta la información de los puntos de la aplicación')
-   .setVersion('1.0')
-   .addTag('quizzapp')
-   .build();
- const document = SwaggerModule.createDocument(app, config);
- SwaggerModule.setup('api', app, document);
+      whitelist: true,
+      /*     forbidNonWhitelisted: true, */
+    }),
+  );
+  const config = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('Documentación de la api de quizzapp')
+    .setDescription('Aca esta la información de los puntos de la aplicación')
+    .setVersion('1.0')
+    .addTag('quizzapp')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   await app.listen(3000);
 }
 bootstrap();
