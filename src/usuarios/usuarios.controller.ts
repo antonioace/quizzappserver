@@ -21,13 +21,20 @@ import { User } from './entities/usuario.entity';
 /* import { JwtAuthGuard } from './jwt-auth-guards'; */
 
 @ApiBearerAuth()
-@ApiTags("Usuarios")
+@ApiTags('Usuarios')
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
-  @ApiResponse({status: 201, description: 'El usuario fue creado exitosamente.',type:User})
-  @ApiResponse({status: 400, description: 'Hubo un error y no se pudo crear el usuario.'})
+  @ApiResponse({
+    status: 201,
+    description: 'El usuario fue creado exitosamente.',
+    type: User,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Hubo un error y no se pudo crear el usuario.',
+  })
   @Post()
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuariosService.create(createUsuarioDto);

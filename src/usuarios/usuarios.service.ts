@@ -48,7 +48,7 @@ export class UsuariosService {
     if (!isMatch) {
       throw new UnauthorizedException('Clave incorrecta');
     }
-    return user
+    return user;
   }
   async login(user: User) {
     const token = await this.createPayload(user);
