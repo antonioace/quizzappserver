@@ -12,6 +12,9 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CategoriasModule } from './categorias/categorias.module';
 import { CuestionariosModule } from './cuestionarios/cuestionarios.module';
+import { FilesModule } from './files/files.module';
+
+import { MessageGateweyModule } from './message-gatewey/message-gatewey.module';
 
 @Module({
   imports: [
@@ -21,9 +24,12 @@ import { CuestionariosModule } from './cuestionarios/cuestionarios.module';
     CuestionariosModule,
 
     ConfigModule.forRoot(),
+
     MongooseModule.forRoot(process.env.MONGO_URI),
+    FilesModule,
+    MessageGateweyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
