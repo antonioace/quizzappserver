@@ -15,6 +15,7 @@ import { CuestionariosModule } from './cuestionarios/cuestionarios.module';
 import { FilesModule } from './files/files.module';
 
 import { MessageGateweyModule } from './message-gatewey/message-gatewey.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MessageGateweyModule } from './message-gatewey/message-gatewey.module';
     MongooseModule.forRoot(process.env.MONGO_URI),
     FilesModule,
     MessageGateweyModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

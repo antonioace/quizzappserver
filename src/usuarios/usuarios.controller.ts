@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Req,
+  ParseUUIDPipe,
+
 } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
@@ -18,13 +20,14 @@ import { LocalAuthGuard } from './local-auth-guards';
 import { JwtAuthGuard } from './jwt-auth-guards';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './entities/usuario.entity';
+import { ParseMongoIdPipe } from 'src/common/pipes/parse-mongo-id/parse-mongo-id.pipe';
 /* import { JwtAuthGuard } from './jwt-auth-guards'; */
 
 @ApiBearerAuth()
 @ApiTags('Usuarios')
 @Controller('usuarios')
 export class UsuariosController {
-  constructor(private readonly usuariosService: UsuariosService) {}
+  constructor(private readonly usuariosService: UsuariosService) { }
 
   @ApiResponse({
     status: 201,
@@ -43,18 +46,39 @@ export class UsuariosController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto, @Req() req) {
+    
     return this.usuariosService.login(req.user);
+  }
+
+  @Get("/checktoken")
+  checkToken(@Req() req) {
+
+    return this.usuariosService.checkToken(req.headers.authorization);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Req() req) {
+
     return this.usuariosService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/profile')
+  getProfile(@Req() req) {
+
+    const idUsuario = req.user._id;
+
+
+    return this.usuariosService.findOne(idUsuario);
+  }
+
+
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usuariosService.findOne(+id);
+  findOne(@Param('id', ParseMongoIdPipe) id: string) {
+
+
+    return this.usuariosService.findOne(id);
   }
 
   @Patch(':id')
