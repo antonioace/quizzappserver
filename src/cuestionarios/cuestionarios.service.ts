@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import { CreateCuestionarioDto } from './dto/create-cuestionario.dto';
 import { UpdateCuestionarioDto } from './dto/update-cuestionario.dto';
+import { Cuestionario } from './entities/cuestionario.entity';
 
 @Injectable()
 export class CuestionariosService {
-  create(createCuestionarioDto: CreateCuestionarioDto) {
-    return 'This action adds a new cuestionario';
+  constructor(
+    @InjectModel(Cuestionario.name) private cuestionarioModel: Model<Cuestionario>,
+  ) { }
+
+  async create(createCuestionarioDto: CreateCuestionarioDto): Promise<Cuestionario> {
+    const createdCuestionario = new this.cuestionarioModel(createCuestionarioDto);
+    return createdCuestionario.save();
   }
 
-  findAll() {
-    return `This action returns all cuestionarios`;
+  async findAll(): Promise<Cuestionario[]> {
+    return this.cuestionarioModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cuestionario`;
+  async findOne(id: string): Promise<Cuestionario> {
+    return this.cuestionarioModel.findById(id).exec();
   }
 
-  update(id: number, updateCuestionarioDto: UpdateCuestionarioDto) {
-    return `This action updates a #${id} cuestionario`;
+  // Hazme una funcion que busque la lista de cuestionarios a partir del id del usuario
+  async findCuestionariosByUserId(idUsuario: string): Promise<Cuestionario[]> {
+    return this.cuestionarioModel.find({ idUsuario: idUsuario }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cuestionario`;
+
+  async update(id: string, updateCuestionarioDto: UpdateCuestionarioDto): Promise<Cuestionario> {
+    return this.cuestionarioModel.findByIdAndUpdate(id, updateCuestionarioDto, { new: true }).exec();
+  }
+
+  async remove(id: string): Promise<Cuestionario> {
+    return this.cuestionarioModel.findByIdAndRemove(id).exec();
   }
 }

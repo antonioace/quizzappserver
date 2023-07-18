@@ -23,6 +23,7 @@ import { User } from './entities/usuario.entity';
 import { ParseMongoIdPipe } from 'src/common/pipes/parse-mongo-id/parse-mongo-id.pipe';
 /* import { JwtAuthGuard } from './jwt-auth-guards'; */
 
+
 @ApiBearerAuth()
 @ApiTags('Usuarios')
 @Controller('usuarios')
@@ -46,7 +47,7 @@ export class UsuariosController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto, @Req() req) {
-    
+
     return this.usuariosService.login(req.user);
   }
 

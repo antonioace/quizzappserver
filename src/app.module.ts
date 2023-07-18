@@ -16,6 +16,8 @@ import { FilesModule } from './files/files.module';
 
 import { MessageGateweyModule } from './message-gatewey/message-gatewey.module';
 import { CommonModule } from './common/common.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { RespuestasModule } from './respuestas/respuestas.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { CommonModule } from './common/common.module';
     FilesModule,
     MessageGateweyModule,
     CommonModule,
+    CloudinaryModule,
+    RespuestasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
