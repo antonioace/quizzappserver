@@ -20,13 +20,22 @@ export class CuestionariosController {
       nombre: createCuestionarioDto.nombre,
       descripcion: createCuestionarioDto.descripcion,
       categoria: createCuestionarioDto.categoria,
-      tipoCuestionario: createCuestionarioDto.tipoCuestionario,
-      preguntas: createCuestionarioDto.preguntas,
+
+      preguntas: createCuestionarioDto?.preguntas?.map(pregunta => ({
+        ...pregunta,
+
+        _id: String(new Date().getTime()),
+      })),
       idUsuario: idUsuario,
     };
 
 
     return this.cuestionariosService.create(cuestionarioCreado);
+  }
+
+  @Get('all')
+  findAllCuestionarios() {
+    return this.cuestionariosService.findAll();
   }
 
   @Get()

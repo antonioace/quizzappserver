@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsArray, ValidateNested, IsOptional } from 'class-validator';
+import { IsString, IsArray, ValidateNested, IsOptional, isString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class OpcionDto {
@@ -11,6 +11,12 @@ export class OpcionDto {
 }
 
 export class PreguntaDto {
+
+  @IsString()
+  @IsOptional()
+  _id: string;
+
+
   @IsString()
   nombre: string;
 
@@ -36,13 +42,15 @@ export class CreateCuestionarioDto {
   @ApiProperty({ example: 'Este es un cuestionario de prueba' })
   descripcion: string;
 
-  @IsString()
-  @ApiProperty({ example: '64863d0763544f7ca9b0c55e' })
-  categoria: string;
 
-  @IsString()
-  @ApiProperty({ example: 'Opción múltiple' })
-  tipoCuestionario: string;
+  @IsArray()
+  @ApiProperty({
+
+    example: ['Geografía', 'Historia', 'Ciencia', 'Arte', 'Deportes', 'Entretenimiento', 'Misceláneo'],
+  })
+  categoria: string[];
+
+
 
   @IsString()
   @IsOptional()

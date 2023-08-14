@@ -9,21 +9,23 @@ export class Cuestionario extends Document {
   @Prop({ required: true })
   descripcion: string;
 
-  @Prop({ required: true, type: Esquema.Types.ObjectId })
+  // Cambia el type por un arreglo de strings
+
+  @Prop({ required: true, type: [String] })
   categoria: string;
 
-  @Prop({ required: true })
-  tipoCuestionario: string;
 
   @Prop({ required: true, type: Esquema.Types.ObjectId }) // Agregar el campo idUsuario
   idUsuario: string;
 
   @Prop([{
+    _id: { type: String, required: true },
     nombre: { type: String, required: true },
     descripcion: { type: String, required: true },
     opciones: [{ type: String, required: true }],
   }])
   preguntas: {
+    _id: string;
     nombre: string;
     descripcion: string;
     opciones: string[];
