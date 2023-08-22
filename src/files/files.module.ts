@@ -5,6 +5,9 @@ import { MulterModule } from '@nestjs/platform-express';
 
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { Mongoose } from 'mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
+import { FileEschema } from './entity/file.entity';
 
 @Module({
   /*   imports: [
@@ -12,6 +15,12 @@ import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
     ], */
   imports: [
     CloudinaryModule,
+    MongooseModule.forFeature([
+      {
+        name: 'File',
+        schema: FileEschema,
+      }
+    ]),
   ],
 
   controllers: [FilesController],
