@@ -55,6 +55,7 @@ export class FilesController {
         message: 'Archivo subido exitosamente',
       };
     } catch (error) {
+      console.log("Error", error)
       throw new InternalServerErrorException('Error al cargar el archivo a Cloudinary');
     }
   }

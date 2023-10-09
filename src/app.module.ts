@@ -18,6 +18,8 @@ import { MessageGateweyModule } from './message-gatewey/message-gatewey.module';
 import { CommonModule } from './common/common.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { RespuestasModule } from './respuestas/respuestas.module';
+import { ServicegenericModule } from './servicegeneric/servicegeneric.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -34,7 +36,10 @@ import { RespuestasModule } from './respuestas/respuestas.module';
     CommonModule,
     CloudinaryModule,
     RespuestasModule,
+    ServicegenericModule,
+    RoleModule,
   ],
+  exports: [ServicegenericModule],
   controllers: [AppController],
   providers: [AppService],
 })
